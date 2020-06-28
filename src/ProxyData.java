@@ -40,7 +40,7 @@ public class ProxyData {
 	 */
 	public ProxyData() {
 		windDirection = random.nextInt(361); //from 0-360, represented in degrees. 0 degrees means no wind data
-		windSpeed = random.nextInt(256); //1 byte max unsigned, may need to reduce this range to be more realistic
+		windSpeed = random.nextInt(200); //1 byte max unsigned, 0-200 MPH
 		rainCollector = random.nextInt(65535); //may need tweaking. the sensor sends 2 bytes worth of data but 65k is probably too big of a range to be reasonable
 		temperature = random.nextInt(32768); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
 		if(random.nextBoolean()) {
@@ -56,6 +56,7 @@ public class ProxyData {
 	 * It is a two byte unsigned value from 1 to 360 degrees.(0° is no wind data,90° is East, 180° is South, 270° is West and 360° is north)
 	 */
 	public static String getWindDirection() {
+	    windDirection = random.nextInt(361); //from 0-360, represented in degrees. 0 degrees means no wind data
 		return Integer.toBinaryString(windDirection);
 	}
 	
@@ -64,6 +65,7 @@ public class ProxyData {
 	 * It is a byte unsigned value in mph.  If the wind speed is dashed because it lost synchronization with the radio or due to some other reason, the wind speed is forced to be 0.
 	 */
 	public static String getWindSpeed() {
+	    windSpeed = random.nextInt(200); //1 byte max unsigned, 0-200 MPH
 		return Integer.toBinaryString(windSpeed);
 	}
 
