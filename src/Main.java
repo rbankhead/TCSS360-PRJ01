@@ -10,10 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		View.helloWorld();
-		
-		Anemometer myAnemometer = new Anemometer();
-		System.out.println(myAnemometer.getCurrentWindDirection());
-		System.out.println(myAnemometer.getCurrentWindSpeed());
+	
 	}
 
 }
