@@ -3,7 +3,7 @@
  * 
  * @author Andrew Josten
  */
-public class TemperatureSensor extends Sensor{
+public class TemperatureSensor extends AbstractSensor{
 	/**
 	 * Holds the value of the temperature
 	 */
