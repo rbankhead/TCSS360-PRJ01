@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Proxy data class to imitate the sensors of the Vantage Pro2 Sensor Suite
@@ -8,7 +10,7 @@ import java.util.Random;
  * 
  * @author richardbankhead
  */
-public class ProxyData {
+public class ProxyData extends TimerTask implements Runnable{
 	
 	/** Random object used to generate reasonable proxy sensor data */
 	private static Random random = new Random();
@@ -106,6 +108,17 @@ public class ProxyData {
 	 */
 	public static String getUltravioletIndex() {
 		return Integer.toBinaryString(ultravioletIndex);
+	}
+
+
+	/**
+	 * creates a new thread to generate proxy data every 30 seconds
+	 */
+	@Override
+	public void run() {
+		Timer timer = new Timer();
+		TimerTask refreshProxyData = new ProxyData();
+		timer.schedule(refreshProxyData, System.currentTimeMillis(), 30000); //runs once initially then again every 30 seconds
 	}
 
 	

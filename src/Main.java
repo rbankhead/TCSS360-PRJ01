@@ -9,7 +9,16 @@
 public class Main {
 
 	public static void main(String[] args) {
-	
+		Thread proxyData = new Thread(new ProxyData()); //init proxydata thread
+		proxyData.start(); //start thread
+		Anemometer a = new Anemometer(); //test Anemometer
+		System.out.println(a.getCurrentWindSpeed()); //output init reading
+		long start = System.currentTimeMillis();
+		long current  = System.currentTimeMillis();
+		while(current-start < 35000) { 
+			current  = System.currentTimeMillis(); //wait 35 seconds before taking the next reading
+		}
+		System.out.println(a.getCurrentWindSpeed()); //output updated reading
 	}
 
 }
