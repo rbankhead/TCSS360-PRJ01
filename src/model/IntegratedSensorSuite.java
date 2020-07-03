@@ -23,6 +23,11 @@ public class IntegratedSensorSuite implements Serializable {
     
     public transient TemperatureSensor myTemperatureSensor;
     
+    /** Each Vantage Pro2 console can receive data from up to 8 different wireless transmitters.
+     *  The default transmitter ID for the sensor suite is 1, and in most cases it is not necessary to change it.
+     */
+    public int myTransmitterId = 1;
+    
     public String myCurrentWindDirection;
     
     public String myCurrentWindSpeed;
@@ -30,6 +35,7 @@ public class IntegratedSensorSuite implements Serializable {
     public int myCurrentHumidity;
     
     public int myCurrentTemperature;
+    
     
     /** 
      * Constructor of a Integrated Sensor Suite which contains a variety of sensors and stores the current data. 
@@ -39,6 +45,7 @@ public class IntegratedSensorSuite implements Serializable {
         myAnemometer = new Anemometer();
         myHumiditySensor = new HumiditySensor();
         myTemperatureSensor = new TemperatureSensor();
+        myTransmitterId = theTransmitterId;
         reinitializeData();
         
     }
@@ -51,6 +58,16 @@ public class IntegratedSensorSuite implements Serializable {
         myCurrentWindSpeed = myAnemometer.getCurrentWindSpeed();
         myCurrentHumidity = myHumiditySensor.getSensorReading();
         myCurrentTemperature = myTemperatureSensor.getSensorReading();
+    }
+    
+    /** Returns the transmitter ID. */
+    public int getTransmitterId() {
+        return myTransmitterId;
+    };
+    
+    /** Changes the transmitter ID. */
+    public void setTransmitterId(int theInt) {
+        myTransmitterId = theInt;
     }
     
     @Override
