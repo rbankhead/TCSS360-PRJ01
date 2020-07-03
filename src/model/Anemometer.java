@@ -22,8 +22,6 @@ public class Anemometer extends AbstractSensor {
      * @return myWindDirection - a formatted string which reports the direction of the wind
      */
     public String getCurrentWindDirection() {
-        String binary = ProxyData.getWindDirection(); //gets random value in binary string format
-        myWindDirection = Integer.toString(getDecimal(Integer.parseInt(binary))); //convert to int from binary, then to string
         myWindDirection += DEGREE_SYMBOL; //format string
         return myWindDirection;
     }
@@ -33,16 +31,18 @@ public class Anemometer extends AbstractSensor {
      * @return myWindSpeed - a formatted string which reports the speed of the wind
      */
     public String getCurrentWindSpeed() {
-        String binary = ProxyData.getWindSpeed(); //gets random value in binary string format
-        myWindSpeed = Integer.toString(getDecimal(Integer.parseInt(binary))); //convert to int from binary, then to string
         myWindSpeed += " MPH"; //format string
         return myWindSpeed;
     }
     
     /** reinitializes both wind data variables. */
-    private void recalibrateData() {
-        myWindDirection = ProxyData.getWindDirection();
-        myWindSpeed = ProxyData.getWindSpeed();
+    public void recalibrateData() {
+        
+        String binary = ProxyData.getWindDirection(); //gets random value in binary string format
+        myWindDirection = Integer.toString(getDecimal(Integer.parseInt(binary))); //convert to int from binary, then to string
+        
+        binary = ProxyData.getWindSpeed(); //gets random value in binary string format
+        myWindSpeed = Integer.toString(getDecimal(Integer.parseInt(binary))); //convert to int from binary, then to string
     }
     
 }

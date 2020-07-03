@@ -9,8 +9,11 @@ public abstract class AbstractSensor {
     /** The degree symbol for use in formatted strings regarding temperature or angles. */
     final static char DEGREE_SYMBOL = 0x00B0;
     
+    /** This method will reach out to ProxyData for the appropriate static method for the sensor to be to be set to its variable(s).
+     */
+    public abstract void recalibrateData();
     
-    //** Converts from binary to int. */
+    /** Converts from binary to int. */
     public static int getDecimal(int binary){  
         int decimal = 0;  
         int n = 0;  
@@ -26,4 +29,6 @@ public abstract class AbstractSensor {
         }  
         return decimal;  
     } 
+    
+  
 }
