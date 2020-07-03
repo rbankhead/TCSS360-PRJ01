@@ -1,3 +1,5 @@
+package model;
+
 /**
  * The sensor for monitoring the amount of rain that has fallen in a 
  * specified period of time measure in rain clicks. 1 click = 0.2mm
