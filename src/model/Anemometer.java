@@ -1,3 +1,5 @@
+package model;
+
 /**
  * The anemometer is a sensor that provides readings on the wind speed and direction.
  * @author chanteltrainer

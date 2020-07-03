@@ -1,3 +1,5 @@
+package model;
+
 /**
  * The sensor dedicated to the temperature provided by the device.
  * 

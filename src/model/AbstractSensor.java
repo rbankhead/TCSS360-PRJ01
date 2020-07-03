@@ -1,3 +1,4 @@
+package model;
 /**
  * AbstractSensor includes behavior of a sensor within the Integrated Sensor Suite. A sensor provides data to the Vantage Pro2 Console.
  * @author chanteltrainer
