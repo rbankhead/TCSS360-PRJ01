@@ -45,7 +45,7 @@ public class TemperatureSensor extends AbstractSensor{
 	@Override
 	public void recalibrateData() {
         String binary = ProxyData.getTemperature();//gets binary val from proxy
-    	temp = getDecimal(Integer.parseInt(binary));
+    	temp = (int) Long.parseLong(binary, 2);
 
         //This technically works. Removed to make use of getDecimal()
 		//temp = Integer.parseUnsignedInt(ProxyData.getTemperature(),2);

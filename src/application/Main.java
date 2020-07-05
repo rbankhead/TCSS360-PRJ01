@@ -3,7 +3,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import model.Anemometer;
 import model.IntegratedSensorSuite;
 import model.ProxyData;
 

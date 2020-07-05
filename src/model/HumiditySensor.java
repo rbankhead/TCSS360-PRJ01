@@ -45,7 +45,7 @@ public class HumiditySensor extends AbstractSensor{
 	@Override
 	public void recalibrateData() {
         String binary = ProxyData.getHumidity();//gets binary val from proxy        
-    	humidity = getDecimal(Integer.parseInt(binary));
+    	humidity = Integer.parseInt(binary, 2);
         
         //This techincally works. Removed to make use of getDecimal()
         //humidity = Integer.parseUnsignedInt(ProxyData.getHumidity(),2);

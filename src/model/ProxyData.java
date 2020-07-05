@@ -92,7 +92,7 @@ public class ProxyData implements Runnable{
 	 * documentation doesn't specify but we can assume this is a signed value
 	 */
 	public static String getTemperature() {
-		temperature = random.nextInt(200); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
+		temperature = random.nextInt(150); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
 		if(random.nextBoolean()) {
 			temperature = -temperature; //50% chance to be negative value
 		}
