@@ -21,14 +21,14 @@ public class RainCollectorSensor { //extends AbstractSensor{
 	/**
 	 * the final result of clicks times the unit of measure.
 	 */
-	private double result;
+	private double result; 
 	
 	/**
 	 * The constructor for this class. Initializes the number of clicks measured to 0.
 	 */
 	public RainCollectorSensor() {
 		clicks = 0;
-		metric = true;
+		metric = true; 
 	}
 	
 	/**
@@ -53,6 +53,15 @@ public class RainCollectorSensor { //extends AbstractSensor{
 		else result *= 0.01;
 		return result;
 		
+	}
+	
+	/**
+	 * Switches the units of measure between mm and inches.
+	 * 
+	 * @param b The boolean for if the units are metric.
+	 */
+	public void setUnitsMetric(boolean b) {
+		metric = b;
 	}
 	
 	//@Override
