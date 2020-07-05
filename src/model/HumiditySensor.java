@@ -51,4 +51,16 @@ public class HumiditySensor extends AbstractSensor{
     public String toString(){
         return humidity + "%";
     }
+
+	@Override
+	public void recalibrateData() {
+	      humidity = Integer.parseUnsignedInt(ProxyData.getHumidity(),2);
+	        if(humidity < 1) {
+	            humidity = 1;
+	        }
+	        else if(humidity > 100) {
+	            humidity = 100;
+	        }
+		
+	}
 }

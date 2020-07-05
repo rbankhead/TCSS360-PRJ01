@@ -50,5 +50,16 @@ public class TemperatureSensor extends AbstractSensor{
      */
     public String toString() {
         return (temp + "° F");
-    }    
+    }
+
+	@Override
+	public void recalibrateData() {
+      temp = Integer.parseUnsignedInt(ProxyData.getTemperature(),2);
+        if(temp < -40) {
+            temp = -40;
+        }
+        else if(temp > 150) {
+            temp = 150;
+        }
+	}    
 }

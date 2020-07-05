@@ -1,9 +1,10 @@
 package tests;
+import model.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
 /**
  * JUnit test for HumiditySensor.
  * NOTE: Cannot get full coverage because one branch in the if/else

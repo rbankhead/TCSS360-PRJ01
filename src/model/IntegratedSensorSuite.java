@@ -54,6 +54,9 @@ public class IntegratedSensorSuite implements Serializable {
      * A method which re-initializes the current data of the sensors.
      */
     public void reinitializeData() {
+        myAnemometer.recalibrateData();
+        myHumiditySensor.recalibrateData();
+        myTemperatureSensor.recalibrateData();
         myCurrentWindDirection = myAnemometer.getCurrentWindDirection();
         myCurrentWindSpeed = myAnemometer.getCurrentWindSpeed();
         myCurrentHumidity = myHumiditySensor.getSensorReading();
@@ -70,9 +73,18 @@ public class IntegratedSensorSuite implements Serializable {
         myTransmitterId = theInt;
     }
     
+    /** Changes current sensor readings to exact values (for testing purposes) */
+    public void setSensorReadings(int theWindDirection, int theWindSpeed, int theHumidity, int theTemp) {
+        myCurrentWindDirection = Integer.toString(theWindDirection);
+        myCurrentWindSpeed = Integer.toString(theWindSpeed);
+        myCurrentHumidity = theHumidity;
+        myCurrentTemperature = theTemp;
+    }
+    
     @Override
     public String toString() {
         return "Wind Direction: " + myCurrentWindDirection + ". Wind Speed: " + myCurrentWindSpeed + ". Humidity: " 
                 + myCurrentHumidity + "%. Temperature: " + myCurrentTemperature + DEGREE_SYMBOL + "F.";
     }
+    
 }
