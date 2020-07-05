@@ -13,24 +13,10 @@ public class TemperatureSensor extends AbstractSensor{
 
     /**
      * Constructor. Initializes temp to 0°.
-     * To change temp value, call setTemp();
+     * To change temp value, call recalibrateData();
      */
     public TemperatureSensor(){
         temp = 0;
-    }
-
-    /**
-     * Sets the temp in this class by pulling from raw data (in this case, the proxy class). 
-     * If out of range (-40 to 150 F) rounds to nearest edge value. 
-     */
-    public void setTemp(){
-    	temp = Integer.parseUnsignedInt(ProxyData.getTemperature(),2);
-    	if(temp < -40) {
-    		temp = -40;
-    	}
-    	else if(temp > 150) {
-    		temp = 150;
-    	}
     }
 
     /**
@@ -52,9 +38,22 @@ public class TemperatureSensor extends AbstractSensor{
         return (temp + "° F");
     }
 
+    /**
+     * Sets the temp in this class by pulling from raw data (in this case, the proxy class). 
+     * If out of range (-40 to 150 F) rounds to nearest edge value. 
+     */
 	@Override
 	public void recalibrateData() {
-		// TODO Auto-generated method stub
-		
+        String binary = ProxyData.getTemperature();//gets binary val from proxy
+    	temp = getDecimal(Integer.parseInt(binary));
+
+        //This technically works. Removed to make use of getDecimal()
+		//temp = Integer.parseUnsignedInt(ProxyData.getTemperature(),2);
+    	if(temp < -40) {
+    		temp = -40;
+    	}
+    	else if(temp > 150) {
+    		temp = 150;
+    	}		
 	}    
 }

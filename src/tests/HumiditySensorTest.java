@@ -22,7 +22,7 @@ class HumiditySensorTest {
 		assertEquals(hs.getSensorReading(), 1);
 		
 		//Test range
-		hs.setHumidity();		
+		hs.recalibrateData();		
 		int h = hs.getSensorReading();
 		assertTrue(h >= 1 && h <= 100);		
 		
