@@ -17,30 +17,25 @@ import model.ProxyData;
  */
 public class Main {
 
-    static IntegratedSensorSuite myIntegratedSensorSuite = new IntegratedSensorSuite(1);
+    public static IntegratedSensorSuite myIntegratedSensorSuite = new IntegratedSensorSuite(1);
     
 	public static void main(String[] args) {
-	    
-		Thread proxyData = new Thread(new ProxyData()); //init proxydata thread
+	    //ProxyData proxy = new ProxyData();
+		//Thread proxyData = new Thread(proxy); //init proxydata thread
+		//proxyData.start(); //start thread
 		
-		proxyData.start(); //start thread
-		
-		Anemometer a = new Anemometer(); //test Anemometer
-		
-		System.out.println(a.getCurrentWindSpeed()); //output init reading
-		
-		long start = System.currentTimeMillis();
-		
-		long current  = System.currentTimeMillis();
-		
-		while(current-start < 35000) { 
-			current  = System.currentTimeMillis(); //wait 35 seconds before taking the next reading
-		}
-		
-		System.out.println(a.getCurrentWindSpeed()); //output updated reading
-		System.out.println(a.getCurrentWindSpeed()); //should be the same value if <35s has passed...
+		new Thread(new ProxyData()).start();
 		
 		serialization("data.txt", myIntegratedSensorSuite);
+		
+		long start = System.currentTimeMillis();
+		long current = System.currentTimeMillis();
+		
+		while(current - start < 300000) {
+			current = System.currentTimeMillis();
+		}
+		
+		ProxyData.shutOffTimer();
 		
 	}
 

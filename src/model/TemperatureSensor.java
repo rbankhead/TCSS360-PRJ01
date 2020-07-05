@@ -50,5 +50,11 @@ public class TemperatureSensor extends AbstractSensor{
      */
     public String toString() {
         return (temp + "° F");
-    }    
+    }
+
+	@Override
+	public void recalibrateData() {
+		// TODO Auto-generated method stub
+		
+	}    
 }

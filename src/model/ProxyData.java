@@ -3,6 +3,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import application.Main;
+
 /**
  * Proxy data class to imitate the sensors of the Vantage Pro2 Sensor Suite
  * This class randomly generates data to be provided to the Sensor classes who will process that data
@@ -11,7 +13,7 @@ import java.util.TimerTask;
  * 
  * @author richardbankhead
  */
-public class ProxyData extends TimerTask implements Runnable{
+public class ProxyData implements Runnable{
 	
 	/** Random object used to generate reasonable proxy sensor data */
 	private static Random random = new Random();
@@ -37,6 +39,9 @@ public class ProxyData extends TimerTask implements Runnable{
 	/** 1 byte max UV index */
 	private static Integer ultravioletIndex;
 	
+	/** Timer which can be cancel() by Main or Test classes */
+	public static Timer timer;
+	
 	
 	/**
 	 * constructor to initialize a new reading from each sensor
@@ -45,7 +50,7 @@ public class ProxyData extends TimerTask implements Runnable{
 		windDirection = random.nextInt(361); //from 0-360, represented in degrees. 0 degrees means no wind data
 		windSpeed = random.nextInt(200); //1 byte max unsigned, 0-200 MPH
 		rainCollector = random.nextInt(65535); //may need tweaking. the sensor sends 2 bytes worth of data but 65k is probably too big of a range to be reasonable
-		temperature = random.nextInt(32768); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
+		temperature = random.nextInt(200); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
 		if(random.nextBoolean()) {
 			temperature = -temperature; //50% chance to be negative value
 		}
@@ -77,6 +82,7 @@ public class ProxyData extends TimerTask implements Runnable{
 	 * This value is sent as number of rain clicks (0.2mm or 0.01in).  For example, 256 can represent 2.56 inches/hour.
 	 */
 	public static String getRainCollector() {
+		rainCollector = random.nextInt(65535); //may need tweaking. the sensor sends 2 bytes worth of data but 65k is probably too big of a range to be reasonable
 		return Integer.toBinaryString(rainCollector);
 	}
 
@@ -86,6 +92,10 @@ public class ProxyData extends TimerTask implements Runnable{
 	 * documentation doesn't specify but we can assume this is a signed value
 	 */
 	public static String getTemperature() {
+		temperature = random.nextInt(200); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
+		if(random.nextBoolean()) {
+			temperature = -temperature; //50% chance to be negative value
+		}
 		return Integer.toBinaryString(temperature);
 	}
 
@@ -93,6 +103,7 @@ public class ProxyData extends TimerTask implements Runnable{
 	 * This is the relative humidity in %, such as 50 is returned for 50%.
 	 */
 	public static String getHumidity() {
+		humidity = random.nextInt(101); //from 0-100, field is a percentage
 		return Integer.toBinaryString(humidity);
 	}
 
@@ -101,6 +112,7 @@ public class ProxyData extends TimerTask implements Runnable{
 	 * The unit is in watt/meter2.
 	 */
 	public static String getRadiationLevel() {
+		radiationLevel = random.nextInt(65535); //number of watts per meter squared
 		return Integer.toBinaryString(radiationLevel);
 	}
 	
@@ -108,7 +120,13 @@ public class ProxyData extends TimerTask implements Runnable{
 	 * The unit is in UV index.
 	 */
 	public static String getUltravioletIndex() {
+		ultravioletIndex = random.nextInt(13); //field has a 1 byte max but UV>11 is considered extreme so I'm allowing a max of 12 here
 		return Integer.toBinaryString(ultravioletIndex);
+	}
+	
+	
+	public static void shutOffTimer() {
+		timer.cancel();
 	}
 
 
@@ -117,9 +135,14 @@ public class ProxyData extends TimerTask implements Runnable{
 	 */
 	@Override
 	public void run() {
-		Timer timer = new Timer();
-		TimerTask refreshProxyData = new ProxyData();
-		timer.schedule(refreshProxyData, System.currentTimeMillis(), 30000); //runs once initially then again every 30 seconds
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+            public void run() {
+                Main.myIntegratedSensorSuite = new IntegratedSensorSuite(1);
+                System.out.println(Main.myIntegratedSensorSuite);
+            }
+		}, 0, 30000); //runs once initially then again every 30 seconds
 	}
 
 	

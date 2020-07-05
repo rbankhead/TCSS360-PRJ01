@@ -51,4 +51,10 @@ public class HumiditySensor extends AbstractSensor{
     public String toString(){
         return humidity + "%";
     }
+
+	@Override
+	public void recalibrateData() {
+		// TODO Auto-generated method stub
+		
+	}
 }
