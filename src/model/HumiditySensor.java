@@ -13,24 +13,10 @@ public class HumiditySensor extends AbstractSensor{
 
     /**
      * Constructor. Initializes humidity to 1.
-     * To change humidity value, call setHumidity();
+     * To change humidity value, call recalibrateData()();
      */
     public HumiditySensor(){
         humidity = 1;
-    }
-
-    /**
-     * Sets the humidity in this class by pulling from raw data (in this case, the proxy class). 
-     * If out of range (1 to 100 %) rounds to nearest edge value. 
-     */
-    public void setHumidity(){
-    	humidity = Integer.parseUnsignedInt(ProxyData.getHumidity(),2);
-    	if(humidity < 1) {
-    		humidity = 1;
-    	}
-    	else if(humidity > 100) {
-    		humidity = 100;
-    	}
     }
 
     /**
@@ -52,15 +38,23 @@ public class HumiditySensor extends AbstractSensor{
         return humidity + "%";
     }
 
+    /**
+     * Sets the humidity in this class by pulling from raw data (in this case, the proxy class). 
+     * If out of range (1 to 100 %) rounds to nearest edge value. 
+     */
 	@Override
 	public void recalibrateData() {
-	      humidity = Integer.parseUnsignedInt(ProxyData.getHumidity(),2);
-	        if(humidity < 1) {
-	            humidity = 1;
-	        }
-	        else if(humidity > 100) {
-	            humidity = 100;
-	        }
-		
+        String binary = ProxyData.getHumidity();//gets binary val from proxy        
+    	humidity = getDecimal(Integer.parseInt(binary));
+        
+        //This techincally works. Removed to make use of getDecimal()
+        //humidity = Integer.parseUnsignedInt(ProxyData.getHumidity(),2);
+
+    	if(humidity < 1) {
+    		humidity = 1;
+    	}
+    	else if(humidity > 100) {
+    		humidity = 100;
+    	}		
 	}
 }

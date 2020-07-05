@@ -21,7 +21,7 @@ class TemperatureSensorTest {
 		assertEquals(ts.getSensorReading(), 0);
 		
 		//Test range
-		ts.setTemp();		
+		ts.recalibrateData();		
 		int h = ts.getSensorReading();
 		assertTrue(h >= -40 && h <= 150);		
 		

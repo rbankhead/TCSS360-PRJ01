@@ -42,7 +42,6 @@ public class ProxyData implements Runnable{
 	/** Timer which can be cancel() by Main or Test classes */
 	public static Timer timer;
 	
-	
 	/** 
 	 * constructor to initialize a new reading from each sensor
 	 */
@@ -51,6 +50,7 @@ public class ProxyData implements Runnable{
 		windSpeed = random.nextInt(200); //1 byte max unsigned, 0-200 MPH
 		rainCollector = random.nextInt(65535); //may need tweaking. the sensor sends 2 bytes worth of data but 65k is probably too big of a range to be reasonable
 		temperature = random.nextInt(150); //again 2 byte maximum yikes that's extreme. the documentation doesn't specify but we can assume this is a signed 2s complement value
+
 		if(random.nextBoolean()) {
 			temperature = -temperature; //50% chance to be negative value
 		}
