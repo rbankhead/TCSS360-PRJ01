@@ -23,6 +23,8 @@ public class IntegratedSensorSuite implements Serializable {
     
     public transient TemperatureSensor myTemperatureSensor;
     
+    public transient RainCollectorSensor myRainSensor;
+    
     /** Each Vantage Pro2 console can receive data from up to 8 different wireless transmitters.
      *  The default transmitter ID for the sensor suite is 1, and in most cases it is not necessary to change it.
      */
@@ -36,6 +38,7 @@ public class IntegratedSensorSuite implements Serializable {
     
     public int myCurrentTemperature;
     
+    public double myCurrentRainAmount;
     
     /** 
      * Constructor of a Integrated Sensor Suite which contains a variety of sensors and stores the current data. 
@@ -45,9 +48,9 @@ public class IntegratedSensorSuite implements Serializable {
         myAnemometer = new Anemometer();
         myHumiditySensor = new HumiditySensor();
         myTemperatureSensor = new TemperatureSensor();
+        myRainSensor = new RainCollectorSensor();
         myTransmitterId = theTransmitterId;
         reinitializeData();
-        
     }
 
     /**
@@ -57,6 +60,8 @@ public class IntegratedSensorSuite implements Serializable {
         myAnemometer.recalibrateData();
         myHumiditySensor.recalibrateData();
         myTemperatureSensor.recalibrateData();
+        myRainSensor.recalibrateData();
+        myCurrentRainAmount = myRainSensor.getReading();
         myCurrentWindDirection = myAnemometer.getCurrentWindDirection();
         myCurrentWindSpeed = myAnemometer.getCurrentWindSpeed();
         myCurrentHumidity = myHumiditySensor.getSensorReading();
@@ -74,17 +79,19 @@ public class IntegratedSensorSuite implements Serializable {
     }
     
     /** Changes current sensor readings to exact values (for testing purposes) */
-    public void setSensorReadings(int theWindDirection, int theWindSpeed, int theHumidity, int theTemp) {
+    public void setSensorReadings(int theWindDirection, int theWindSpeed, int theHumidity, int theTemp, double theRain) {
         myCurrentWindDirection = Integer.toString(theWindDirection);
         myCurrentWindSpeed = Integer.toString(theWindSpeed);
         myCurrentHumidity = theHumidity;
         myCurrentTemperature = theTemp;
+        myCurrentRainAmount = theRain;
     }
     
     @Override
     public String toString() {
         return "Wind Direction: " + myCurrentWindDirection + ". Wind Speed: " + myCurrentWindSpeed + ". Humidity: " 
-                + myCurrentHumidity + "%. Temperature: " + myCurrentTemperature + DEGREE_SYMBOL + "F.";
+                + myCurrentHumidity + "%. Temperature: " + myCurrentTemperature + DEGREE_SYMBOL + "F." + "RainAmount: " 
+                + myCurrentRainAmount;
     }
     
 }

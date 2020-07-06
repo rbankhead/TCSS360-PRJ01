@@ -26,12 +26,14 @@ class IntegratedSensorSuiteTest {
         int prevTemp = myTestISS.myCurrentTemperature;
         String prevWindSpeed = myTestISS.myCurrentWindSpeed;
         String prevWindDirection = myTestISS.myCurrentWindDirection;
+        double prevRainAmount = myTestISS.myCurrentRainAmount;
         myTestISS.reinitializeData();
         // Only way to test for randomness, may occasionally fail since it is random.
         assertNotEquals(prevHumidity, myTestISS.myCurrentHumidity, "failed to reinitialize humidity");
         assertNotEquals(prevTemp, myTestISS.myCurrentTemperature, "failed to reinitialize temperature");
         assertNotEquals(prevWindSpeed, myTestISS.myCurrentWindSpeed, "failed to reinitialize wind speed");
         assertNotEquals(prevWindDirection, myTestISS.myCurrentWindDirection, "failed to reinitialize wind direction");
+        assertNotEquals(prevRainAmount, myTestISS.myCurrentRainAmount, "failed to reinitialize rain amount");
     }
 
     @Test
@@ -49,17 +51,18 @@ class IntegratedSensorSuiteTest {
     
     @Test
     void testSetSensorReadings() {
-        myTestISS.setSensorReadings(2, 3, 4, 5);
+        myTestISS.setSensorReadings(2, 3, 4, 5, 6);
         assertEquals("2", myTestISS.myCurrentWindDirection, "failed to set wind direction");
         assertEquals("3", myTestISS.myCurrentWindSpeed, "failed to set wind speed");
         assertEquals(4, myTestISS.myCurrentHumidity, "failed to set humidity");
         assertEquals(5, myTestISS.myCurrentTemperature, "failed to set temperature");
+        assertEquals(6, myTestISS.myCurrentRainAmount, "failed to set rain amount");
     }
     
     @Test
     void testToString() {
-        myTestISS.setSensorReadings(1, 2, 3, 4);
-        assertEquals("Wind Direction: 1. Wind Speed: 2. Humidity: 3%. Temperature: 4" + DEGREE_SYMBOL + "F.", myTestISS.toString());
+        myTestISS.setSensorReadings(1, 2, 3, 4, 5);
+        assertEquals("Wind Direction: 1. Wind Speed: 2. Humidity: 3%. Temperature: 4" + DEGREE_SYMBOL + "F. RainAmount: 5", myTestISS.toString());
     }
 
 }
