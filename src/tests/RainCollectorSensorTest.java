@@ -8,33 +8,24 @@ import org.junit.jupiter.api.Test;
 
 class RainCollectorSensorTest {
 	
-	private RainCollectorSensor mySensor;
-	
-	@Before
-	public void setup() {
-		mySensor = new RainCollectorSensor();
-	}
-
-	@Test
-	void testContsructor() {
-		RainCollectorSensor temp = new RainCollectorSensor();
-		assertEquals(mySensor, temp);
-	}
+	static ProxyData ProxyData = new ProxyData();
 	
 	@Test
-	void testRead() {
-		RainCollectorSensor temp = new RainCollectorSensor();
-		assertEquals(mySensor.getReading(), 0.0);
-	}
-	
-	@Test
-	void testGetReading() {
-		RainCollectorSensor temp = new RainCollectorSensor();
-		assertEquals(mySensor.getReading(), temp.getReading());
-	}
-
-	@Test
-	void testToString() {
-		assertEquals(mySensor.toString(), "0.0  mm in the collector.");
+	void test() {
+		RainCollectorSensor rcs = new RainCollectorSensor();
+		assertEquals(rcs.getReading(), 0.0);
+		
+		rcs.read();		
+		double r = rcs.getReading();
+		assertTrue(r >= 0.0);
+		assertTrue(r <= 9999.0);
+		
+		// Test toString() for mm;
+		assertTrue(rcs.toString().equals(rcs.getReading()+" mm in the collector."));
+		
+		// Test toString() for inches
+		rcs.setUnitsMetric(false);
+		rcs.getReading();
+		assertTrue(rcs.toString().equals(rcs.getReading()+" in. in the collector."));
 	}
 }
