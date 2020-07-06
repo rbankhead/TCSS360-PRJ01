@@ -15,7 +15,7 @@ class RainCollectorSensorTest {
 		RainCollectorSensor rcs = new RainCollectorSensor();
 		assertEquals(rcs.getReading(), 0.0);
 		
-		rcs.read();		
+		rcs.recalibrateData();		
 		double r = rcs.getReading();
 		assertTrue(r >= 0.0);
 		assertTrue(r <= 9999.0);

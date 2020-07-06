@@ -90,7 +90,7 @@ public class IntegratedSensorSuite implements Serializable {
     @Override
     public String toString() {
         return "Wind Direction: " + myCurrentWindDirection + ". Wind Speed: " + myCurrentWindSpeed + ". Humidity: " 
-                + myCurrentHumidity + "%. Temperature: " + myCurrentTemperature + DEGREE_SYMBOL + "F." + "RainAmount: " 
+                + myCurrentHumidity + "%. Temperature: " + myCurrentTemperature + DEGREE_SYMBOL + "F. " + "RainAmount: " 
                 + myCurrentRainAmount;
     }
     

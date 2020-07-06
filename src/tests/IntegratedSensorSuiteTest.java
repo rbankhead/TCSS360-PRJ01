@@ -62,7 +62,7 @@ class IntegratedSensorSuiteTest {
     @Test
     void testToString() {
         myTestISS.setSensorReadings(1, 2, 3, 4, 5);
-        assertEquals("Wind Direction: 1. Wind Speed: 2. Humidity: 3%. Temperature: 4" + DEGREE_SYMBOL + "F. RainAmount: 5", myTestISS.toString());
+        assertEquals("Wind Direction: 1. Wind Speed: 2. Humidity: 3%. Temperature: 4" + DEGREE_SYMBOL + "F. RainAmount: 5.0", myTestISS.toString());
     }
 
 }

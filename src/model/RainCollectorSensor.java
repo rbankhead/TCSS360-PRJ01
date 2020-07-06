@@ -6,7 +6,7 @@ package model;
  * 
  * @author Sierra Counts
  */
-public class RainCollectorSensor { //extends AbstractSensor{
+public class RainCollectorSensor extends AbstractSensor {
 	
 	/** 
 	 * Holds value for how many clicks are held in measuring cup 
@@ -35,10 +35,10 @@ public class RainCollectorSensor { //extends AbstractSensor{
 	 * This method collects the data from the new sensor reading. If the reading is below 0 it is
 	 * up to 0. similarly it is rounded to 9999 if the reading is above that value.
 	 */
-	public void read() {
+	public void recalibrateData() {
 		clicks = Integer.parseUnsignedInt(ProxyData.getRainCollector(),2);
 		if (clicks < 0) clicks = 0;
-		else if (clicks > 9999) clicks = 9999;
+		else if (clicks > 65535) clicks = 65535;
 	}
 	
 	/**
