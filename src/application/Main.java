@@ -1,7 +1,10 @@
 package application;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 
 import model.IntegratedSensorSuite;
 import model.ProxyData;
@@ -18,14 +21,14 @@ public class Main {
 
     public static IntegratedSensorSuite myIntegratedSensorSuite = new IntegratedSensorSuite(1);
     
+    public static String FILE_NAME = "data.txt";
+    
 	public static void main(String[] args) {
 	    //ProxyData proxy = new ProxyData();
 		//Thread proxyData = new Thread(proxy); //init proxydata thread
 		//proxyData.start(); //start thread
 		
 		new Thread(new ProxyData()).start();
-		
-		serialization("data.txt", myIntegratedSensorSuite);
 		
 		long start = System.currentTimeMillis();
 		long current = System.currentTimeMillis();
@@ -38,33 +41,71 @@ public class Main {
 		
 	}
 
-	/**
-	 * A method which takes a filepath name and object to serialize. The file can then be deserialized to return the object. 
-	 * @author chanteltrainer
-	 * @param theFileName
-	 * @param theObject
-	 */
-	public static void serialization(String theFilePath, Object theObject) {
-	       try
-	        {    
-	            //Saving of object in a file 
-	            FileOutputStream file = new FileOutputStream(theFilePath); 
-	            ObjectOutputStream out = new ObjectOutputStream(file); 
-	              
-	            // Method for serialization of object 
-	            out.writeObject(theObject); 
-	              
-	            out.close(); 
-	            file.close(); 
-	              
-	            System.out.println("Object has been serialized"); 
-	  
-	        } 
-	          
-	        catch(IOException ex) 
-	        { 
-	            System.out.println("Serialization Failed."); 
-	            ex.printStackTrace();
-	        } 
-	}
+    /**
+   * A method which takes a filepath name and object to serialize. The file can then be deserialized to return the object. 
+   * @author chanteltrainer
+   * @param theFileName
+   * @param theObject
+   */
+  public static void serialization(String theFilePath, Object theObject) {
+         try
+          {    
+              //This will clear the file of any previous data
+              PrintWriter writer = new PrintWriter(theFilePath);
+              writer.print("");
+              writer.close();
+             
+              //Saving of object in a file 
+              FileOutputStream file = new FileOutputStream(theFilePath); 
+              ObjectOutputStream out = new ObjectOutputStream(file); 
+                
+              // Method for serialization of object 
+              out.writeObject(theObject); 
+                
+              out.close(); 
+              file.close(); 
+                
+              System.out.println("Object has been serialized"); 
+    
+          } 
+            
+          catch(IOException ex) 
+          { 
+              System.out.println("Serialization Failed."); 
+              ex.printStackTrace();
+          } 
+  }
+  
+  /**
+   * For testing purposes, a method to deserialize the data.
+   * @param theFilePath
+   */
+  public static void deserialization(String theFilePath) {
+      try
+      {    
+          // Reading the object from a file 
+          FileInputStream file = new FileInputStream(theFilePath); 
+          ObjectInputStream in = new ObjectInputStream(file); 
+            
+          // Method for deserialization of object 
+          IntegratedSensorSuite theSuite = (IntegratedSensorSuite) in.readObject(); 
+            
+          in.close(); 
+          file.close(); 
+            
+          System.out.println("Object has been deserialized"); 
+          
+          System.out.println(theSuite.toString());
+      } 
+        
+      catch(IOException ex) 
+      { 
+          System.out.println("IOException is caught"); 
+      } 
+        
+      catch(ClassNotFoundException ex) 
+      { 
+          System.out.println("ClassNotFoundException is caught"); 
+      } 
+  }
 }

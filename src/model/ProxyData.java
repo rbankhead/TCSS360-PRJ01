@@ -1,4 +1,10 @@
 package model;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,7 +19,7 @@ import application.Main;
  * 
  * @author richardbankhead
  */
-public class ProxyData implements Runnable{
+public class ProxyData implements Runnable {
 	
 	/** Random object used to generate reasonable proxy sensor data */
 	private static Random random = new Random();
@@ -139,11 +145,12 @@ public class ProxyData implements Runnable{
 		timer.schedule(new TimerTask() {
 			@Override
             public void run() {
-                Main.myIntegratedSensorSuite = new IntegratedSensorSuite(1);
+                Main.myIntegratedSensorSuite.reinitializeData();;
                 System.out.println(Main.myIntegratedSensorSuite);
+                Main.serialization("data.txt", Main.myIntegratedSensorSuite);
             }
 		}, 0, 30000); //runs once initially then again every 30 seconds
 	}
 
-	
+
 }
