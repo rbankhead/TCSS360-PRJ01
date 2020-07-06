@@ -6,7 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.IntegratedSensorSuite;
-
+/**
+ * Tests for IntegratedSensorSuite class. 
+ * 
+ * @author chanteltrainer
+ *
+ */
 class IntegratedSensorSuiteTest {
 
     /** The degree symbol for use in formatted strings regarding temperature or angles. */
